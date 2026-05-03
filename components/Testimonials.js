@@ -1,5 +1,6 @@
 // components/Testimonials.js
 import { Star, ExternalLink } from 'lucide-react';
+import Script from 'next/script';
 
 export default function Testimonials() {
   return (
@@ -12,13 +13,19 @@ export default function Testimonials() {
           <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
             What Our <span className="text-green-600">Students Say</span>
           </h2>
-          <p className="text-lg text-gray-600">Real reviews from satisfied students who passed their driving tests!</p>
+          <p className="text-lg text-gray-600">
+            Real reviews from satisfied students who passed their driving tests!
+          </p>
         </div>
 
         {/* Google Rating Card */}
         <div className="max-w-2xl mx-auto mb-12 bg-gradient-to-r from-green-50 to-green-100 border-2 border-green-600 rounded-2xl p-8 text-center shadow-xl">
           <div className="flex items-center justify-center space-x-2 mb-4">
-            <img src="https://www.google.com/favicon.ico" alt="Google" className="w-8 h-8" />
+            <img
+              src="https://www.google.com/favicon.ico"
+              alt="Google"
+              className="w-8 h-8"
+            />
             <span className="text-2xl font-bold text-gray-900">Google Reviews</span>
           </div>
           <div className="flex items-center justify-center space-x-2 mb-4">
@@ -41,12 +48,21 @@ export default function Testimonials() {
           </a>
         </div>
 
-        {/* Elfsight Google Reviews Widget */}
+        {/* Elfsight Google Reviews Widget
+            Using next/script with strategy="lazyOnload" so it doesn't
+            block page load or hurt Core Web Vitals / SEO score */}
         <div className="max-w-6xl mx-auto">
-          <script src="https://elfsightcdn.com/platform.js" async></script>
-          <div className="elfsight-app-3719eb44-e750-4257-912d-bd9864beab99" data-elfsight-app-lazy></div>
+          <Script
+            src="https://elfsightcdn.com/platform.js"
+            strategy="lazyOnload"
+          />
+          <div
+            className="elfsight-app-3719eb44-e750-4257-912d-bd9864beab99"
+            data-elfsight-app-lazy
+          />
         </div>
       </div>
     </section>
   );
 }
+
