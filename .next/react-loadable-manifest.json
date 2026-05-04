@@ -1,1 +1,27 @@
-{}
+{
+  "lib/AuthContext.js -> ../lib/firebase": {
+    "id": 6831,
+    "files": [
+      "static/chunks/7112840a-2b407dd0dcf65380.js",
+      "static/chunks/229-18aa6af7f25ef1d9.js",
+      "static/chunks/838-be7297c0e286efbb.js",
+      "static/chunks/831.a6dc64776ce24964.js"
+    ]
+  },
+  "pages/index.js -> ../lib/firebase": {
+    "id": 6831,
+    "files": [
+      "static/chunks/7112840a-2b407dd0dcf65380.js",
+      "static/chunks/229-18aa6af7f25ef1d9.js",
+      "static/chunks/838-be7297c0e286efbb.js",
+      "static/chunks/831.a6dc64776ce24964.js"
+    ]
+  },
+  "pages/index.js -> firebase/firestore": {
+    "id": 9828,
+    "files": [
+      "static/chunks/7112840a-2b407dd0dcf65380.js",
+      "static/chunks/229-18aa6af7f25ef1d9.js"
+    ]
+  }
+}

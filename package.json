@@ -5,14 +5,16 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "postbuild": "next-sitemap",
     "start": "next start"
   },
   "dependencies": {
-    "next": "^14.0.0",
-    "react": "^18.0.0",
-    "react-dom": "^18.0.0",
     "firebase": "^10.0.0",
-    "lucide-react": "^0.383.0"
+    "lucide-react": "^0.383.0",
+    "next": "^14.0.0",
+    "next-sitemap": "^4.2.3",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0"
   },
   "devDependencies": {
     "autoprefixer": "^10.0.0",

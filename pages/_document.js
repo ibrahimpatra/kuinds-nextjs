@@ -54,7 +54,7 @@ export default function Document() {
             5. Paste it below replacing YOUR_CODE_HERE
             6. Push to GitHub → Vercel redeploys → click Verify in Search Console
             ============================================= */}
-        {/* <meta name="google-site-verification" content="YOUR_CODE_HERE" /> */}
+        <meta name="google-site-verification" content="google-site-verification=H_Qqt85SyviL3G2mkW-69P-FgvDy6fi1EMdcqoDF86M" />
 
         {/* =============================================
             LOCAL BUSINESS STRUCTURED DATA (JSON-LD)
@@ -66,7 +66,7 @@ export default function Document() {
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
               "@context": "https://schema.org",
-              "@type": "DrivingSchool",
+              "@type": "LocalBusiness",           // ← change from DrivingSchool
               "name": "Kuwait India Driving School",
               "description": "Professional driving lessons in Kuwait. Expert instructors teaching in English, Arabic, Hindi, Telugu & Tamil.",
               "url": "https://kuwaitindiadrivingschool.com",
@@ -87,8 +87,10 @@ export default function Document() {
               "priceRange": "$$",
               "aggregateRating": {
                 "@type": "AggregateRating",
-                "ratingValue": "5.0",
-                "reviewCount": "100"
+                "ratingValue": 5.0,              // ← numbers not strings
+                "reviewCount": 100,              // ← numbers not strings
+                "bestRating": 5,
+                "worstRating": 1
               }
             }),
           }}

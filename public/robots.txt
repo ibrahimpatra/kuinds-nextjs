@@ -1,0 +1,17 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://kuwaitindiadrivingschool.com
+
+# Sitemaps
+Sitemap: https://kuwaitindiadrivingschool.com/sitemap.xml
+
+User-agent: *
+Allow: /
+
+User-agent: facebookexternalhit
+Allow: /
+
+Sitemap: https://kuwaitindiadrivingschool.com/sitemap.xml
