@@ -16,10 +16,6 @@ import WhatsAppFAB from '../components/WhatsAppFAB';
 import LoadingScreen from '../components/LoadingScreen';
 import { Calendar, ArrowRight, BookOpen } from 'lucide-react';
 
-// ─── Blog Preview Section ─────────────────────────────────────────────────────
-// Fetches latest 3 posts client-side. If anything fails, shows a friendly
-// message instead — no error, no crash, nothing scary on the page.
-
 function formatDate(timestamp) {
   if (!timestamp) return '';
   try {
@@ -32,10 +28,9 @@ function formatDate(timestamp) {
 
 function BlogPreviewSection() {
   const [blogs, setBlogs] = useState([]);
-  const [status, setStatus] = useState('loading'); // 'loading' | 'ok' | 'empty' | 'error'
+  const [status, setStatus] = useState('loading');
 
   useEffect(() => {
-    // Lazy import firebase so it never blocks the initial page render
     let cancelled = false;
     const load = async () => {
       try {
@@ -56,10 +51,8 @@ function BlogPreviewSection() {
     return () => { cancelled = true; };
   }, []);
 
-  // Don't render the section at all while loading — no layout shift
   if (status === 'loading') return null;
 
-  // If no blogs or fetch failed — friendly nudge, not an error
   if (status === 'empty' || status === 'error') {
     return (
       <section className="py-16 bg-gradient-to-br from-green-50 to-white">
@@ -82,7 +75,6 @@ function BlogPreviewSection() {
   return (
     <section className="py-20 bg-gradient-to-br from-green-50 via-white to-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header */}
         <div className="flex items-end justify-between mb-12">
           <div>
             <div className="inline-flex items-center space-x-2 bg-green-100 text-green-800 px-4 py-2 rounded-full text-sm font-semibold mb-4">
@@ -93,28 +85,16 @@ function BlogPreviewSection() {
               Driving Tips &amp; <span className="text-green-600">Guides</span>
             </h2>
           </div>
-          <Link
-            href="/blog"
-            className="hidden sm:inline-flex items-center space-x-2 text-green-600 hover:text-green-700 font-semibold"
-          >
+          <Link href="/blog" className="hidden sm:inline-flex items-center space-x-2 text-green-600 hover:text-green-700 font-semibold">
             <span>View all posts</span>
             <ArrowRight className="w-4 h-4" />
           </Link>
         </div>
-
-        {/* Blog cards */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {blogs.map((blog) => (
-            <article
-              key={blog.id}
-              className="bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1 overflow-hidden flex flex-col"
-            >
+            <article key={blog.id} className="bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1 overflow-hidden flex flex-col">
               {blog.imageUrl ? (
-                <img
-                  src={blog.imageUrl}
-                  alt={blog.title}
-                  className="w-full h-48 object-cover"
-                />
+                <img src={blog.imageUrl} alt={blog.title} className="w-full h-48 object-cover" />
               ) : (
                 <div className="w-full h-48 bg-gradient-to-br from-green-100 to-green-200 flex items-center justify-center">
                   <BookOpen className="w-12 h-12 text-green-400" />
@@ -127,33 +107,15 @@ function BlogPreviewSection() {
                     <span>{formatDate(blog.createdAt)}</span>
                   </div>
                 )}
-                <h3 className="text-lg font-bold text-gray-900 mb-2 line-clamp-2 flex-1">
-                  {blog.title}
-                </h3>
-                {blog.excerpt && (
-                  <p className="text-gray-500 text-sm mb-4 line-clamp-2">{blog.excerpt}</p>
-                )}
-                <Link
-                  href={`/blog/${blog.slug}`}
-                  className="inline-flex items-center space-x-1 text-green-600 hover:text-green-700 font-semibold text-sm mt-auto"
-                >
+                <h3 className="text-lg font-bold text-gray-900 mb-2 line-clamp-2 flex-1">{blog.title}</h3>
+                {blog.excerpt && <p className="text-gray-500 text-sm mb-4 line-clamp-2">{blog.excerpt}</p>}
+                <Link href={`/blog/${blog.slug}`} className="inline-flex items-center space-x-1 text-green-600 hover:text-green-700 font-semibold text-sm mt-auto">
                   <span>Read More</span>
                   <ArrowRight className="w-4 h-4" />
                 </Link>
               </div>
             </article>
           ))}
-        </div>
-
-        {/* Mobile view all link */}
-        <div className="mt-8 text-center sm:hidden">
-          <Link
-            href="/blog"
-            className="inline-flex items-center space-x-2 text-green-600 font-semibold"
-          >
-            <span>View all posts</span>
-            <ArrowRight className="w-4 h-4" />
-          </Link>
         </div>
       </div>
     </section>
@@ -163,14 +125,24 @@ function BlogPreviewSection() {
 // ─── Home Page ────────────────────────────────────────────────────────────────
 
 export default function Home() {
-  const [loading, setLoading] = useState(true);
+  // ✅ KEY FIX: Start as false on server so full page renders
+  // Loading screen only shows on client after hydration
+  const [loading, setLoading] = useState(false);
+  const [showLoader, setShowLoader] = useState(false);
 
   useEffect(() => {
-    const timer = setTimeout(() => setLoading(false), 2000);
-    return () => clearTimeout(timer);
+    // Only show loader on client, only on first visit
+    const hasVisited = sessionStorage.getItem('visited');
+    if (!hasVisited) {
+      setShowLoader(true);
+      sessionStorage.setItem('visited', 'true');
+      const timer = setTimeout(() => setShowLoader(false), 2000);
+      return () => clearTimeout(timer);
+    }
   }, []);
 
-  if (loading) return <LoadingScreen />;
+  // Loading screen only on client-side first visit
+  if (showLoader) return <LoadingScreen />;
 
   return (
     <>
@@ -208,8 +180,8 @@ export default function Home() {
     </>
   );
 }
-// This forces Next.js to server-render this page
-// Google will see the full HTML content instead of an empty div
+
+// Forces Next.js to server-render — Google sees full HTML
 export async function getServerSideProps() {
   return {
     props: {},
