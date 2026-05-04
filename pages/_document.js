@@ -54,7 +54,7 @@ export default function Document() {
             5. Paste it below replacing YOUR_CODE_HERE
             6. Push to GitHub → Vercel redeploys → click Verify in Search Console
             ============================================= */}
-        <meta name="google-site-verification" content="google-site-verification=H_Qqt85SyviL3G2mkW-69P-FgvDy6fi1EMdcqoDF86M" />
+        <meta name="google-site-verification" content="H_Qqt85SyviL3G2mkW-69P-FgvDy6fi1EMdcqoDF86M" />
 
         {/* =============================================
             LOCAL BUSINESS STRUCTURED DATA (JSON-LD)

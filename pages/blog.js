@@ -106,3 +106,10 @@ export default function Blog() {
     </>
   );
 }
+// This forces Next.js to server-render this page
+// Google will see the full HTML content instead of an empty div
+export async function getServerSideProps() {
+  return {
+    props: {},
+  };
+}
